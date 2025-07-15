@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как выгрузить отчет из LMS - Подробное руководство</title>
+<style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .header {
+            background: #1976D2;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .notice-block {
+            background: #fffde7;
+            border-left: 6px solid #ffb300;
+            color: #795548;
+            padding: 24px 32px;
+            border-radius: 10px;
+            margin-bottom: 32px;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .notice-block a {
+            color: #1976D2;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .content {
+            padding: 40px;
+        }
+        .introduction {
+            background: #f8f9fa;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #1976D2;
+        }
+        .introduction h2 {
+            color: #1976D2;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .introduction p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .checklist {
+            margin: 0 0 0 0;
+            padding: 0;
+        }
+        .checklist li {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+            position: relative;
+        }
+        .checklist li::before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .step {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #fafafa;
+            border-radius: 10px;
+            border-left: 4px solid #1976D2;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            background: #1976D2;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 20px;
+        }
+        .step-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+        .step-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .screenshot-img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #e0e0e0;
+        }
+        .detailed-explanation {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+        .detailed-explanation h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        .warning-box {
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f44336;
+        }
+        .warning-box h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+        .feature-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary {
+            background: #f3e5f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid #9c27b0;
+        }
+        .summary h2 {
+            color: #7b1fa2;
+            margin-bottom: 15px;
+        }
+        .navigation-tip {
+            background: #e1f5fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #0277bd;
+        }
+        .importance-note {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .importance-note h4 {
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #1976D2;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .tips-text {
+            font-size: 16px;
+            color: #666;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Air Astana Training Academy</h1>
+        <p>'Building Peak Performance' - Полное руководство по работе с отчетами LMS</p>
+    </div>
+    <div class="container">
+        <div class="content">
+            
+            <div class="notice-block">
+                <strong>Внимание!</strong><br>
+                Эта инструкция предназначена для работы со <b>старыми отчетами</b> в LMS.<br>
+                Если вы хотите узнать, как работать с <b>новыми отчетами</b>, пожалуйста, воспользуйтесь <a href="new-reports.html" target="_blank">новым руководством по отчетам</a>.
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Доступ к меню администратора</div>
+                </div>
+                <div class="step-description">
+                    Первым шагом является получение доступа к административной панели LMS. Это требует соответствующих прав администратора.
+                </div>
+                <img src="screenshots/admin-menu.png" alt="Главная страница LMS с меню администратора" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Подробное объяснение:</h4>
+                    <ul class="checklist">
+                        <li>Меню администратора обычно располагается в верхней части интерфейса или в боковой панели</li>
+                        <li>Оно может быть представлено в виде иконки шестеренки, кнопки "Администрирование" или выпадающего меню с именем пользователя</li>
+                    </ul>
+                </div>
+                <div class="navigation-tip">
+                    <strong>Совет:</strong> Если меню администратора не отображается, убедитесь, что у вас есть соответствующие права. Обратитесь к системному администратору.
+                </div>
+                <div class="tips-text">
+                    <strong>Полезные советы:</strong> Убедитесь, что у вас есть права администратора. Проверьте, что вы вошли в систему под правильной учетной записью. Некоторые функции могут быть доступны только в определенное время.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Переход к разделу "Отчеты"</div>
+                </div>
+                <div class="step-description">
+                    В меню администратора найдите и выберите раздел "Отчеты". Этот раздел содержит все доступные отчеты и инструменты для их создания.
+                </div>
+                <img src="screenshots/reports-menu.png" alt="Меню администратора с выделенным разделом Отчеты" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Что вы найдете в разделе "Отчеты":</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Тип отчета</th>
+                                    <th>Описание</th>
+                                    <th>Частота использования</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Отчеты о пользователях</td>
+                                    <td>Информация о регистрации, активности, прогрессе</td>
+                                    <td>Ежедневно</td>
+                                </tr>
+                                <tr>
+                                    <td>Отчеты о курсах</td>
+                                    <td>Статистика завершения, оценки, время прохождения</td>
+                                    <td>Еженедельно</td>
+                                </tr>
+                                <tr>
+                                    <td>Отчеты о тестировании</td>
+                                    <td>Результаты тестов, анализ вопросов</td>
+                                    <td>После каждого теста</td>
+                                </tr>
+                                <tr>
+                                    <td>Административные отчеты</td>
+                                    <td>Системная статистика, использование ресурсов</td>
+                                    <td>Ежемесячно</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="importance-note">
+                    <h4>Важно знать:</h4>
+                    <div class="tips-text">
+                        Современные LMS системы обычно предоставляют возможность создания как стандартных, так и персонализированных отчетов. Персонализированные отчеты позволяют выбирать конкретные метрики и параметры.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Создание или выбор отчета</div>
+                </div>
+                <div class="step-description">
+                    Теперь можно либо выбрать существующий отчет для корректировки, либо создать новый отчет с нужными параметрами.
+                </div>
+                <img src="screenshots/create-report.png" alt="Список доступных отчетов или форма создания нового отчета" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Создание персонализированного отчета:</h4>
+                    <div class="tips-text">
+                        Укажите название отчета (например, "Отчет по успеваемости за квартал"). Выберите тип отчета (о пользователях или о курсах). Задайте временной период. Определите формат вывода данных.
+                    </div>
+                </div>
+                <div class="tips-text">
+                    <strong>Рекомендации по названию отчетов:</strong> Используйте понятные и описательные названия. Включайте дату или период в название. Указывайте целевую аудиторию (например, "Отчет для HR"). Избегайте слишком длинных названий.
+                </div>
+                <div class="warning-box">
+                    <h4>Предупреждение:</h4>
+                    <div class="tips-text">
+                        Будьте осторожны при создании отчетов с большим объемом данных — они могут занять значительное время на обработку и повлиять на производительность системы.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Выбор пользователей и курсов</div>
+                </div>
+                <div class="step-description">
+                    Определите, по каким пользователям и курсам необходимо создать отчет. Это критически важный шаг для получения релевантных данных.
+                </div>
+                <img src="screenshots/select-users-courses.png" alt="Интерфейс выбора пользователей и курсов" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Варианты выбора:</h4>
+                    <div class="tips-text">
+                        Все пользователи системы. Конкретные группы пользователей. Отдельные пользователи. Все курсы. Конкретные категории курсов. Отдельные курсы.
+                    </div>
+                </div>
+                <div class="importance-note">
+                    <h4>Важно:</h4>
+                    <div class="tips-text">
+                        Чем больше данных вы включите в отчет, тем дольше он будет обрабатываться. Рекомендуется использовать фильтры для получения только необходимой информации.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Настройка параметров отчета</div>
+                </div>
+                <div class="step-description">
+                    Определите дополнительные параметры отчета, такие как временные рамки, формат данных и уровень детализации.
+                </div>
+                <img src="screenshots/report-parameters.png" alt="Настройка параметров отчета" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Основные параметры:</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>Описание</th>
+                                    <th>Варианты</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Период</td>
+                                    <td>Временные рамки для отчета</td>
+                                    <td>Последний месяц, квартал, год, пользовательский</td>
+                                </tr>
+                                <tr>
+                                    <td>Формат</td>
+                                    <td>Формат выходного файла</td>
+                                    <td>Excel, CSV, PDF, HTML</td>
+                                </tr>
+                                <tr>
+                                    <td>Детализация</td>
+                                    <td>Уровень подробности данных</td>
+                                    <td>Сводка, детальный, расширенный</td>
+                                </tr>
+                                <tr>
+                                    <td>Группировка</td>
+                                    <td>Способ группировки данных</td>
+                                    <td>По пользователям, по курсам, по датам</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tips-text">
+                    <strong>Рекомендации:</strong> Для регулярных отчетов используйте стандартные периоды (месяц, квартал). Для анализа выбирайте детальный уровень. Для презентаций подойдет сводка. Excel формат удобен для дальнейшей обработки данных.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Генерация отчета</div>
+                </div>
+                <div class="step-description">
+                    После настройки всех параметров запустите процесс создания отчета. Система начнет обработку данных согласно заданным критериям.
+                </div>
+                <img src="screenshots/generate-report.png" alt="Процесс генерации отчета" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Процесс генерации:</h4>
+                    <div class="tips-text">
+                        Нажмите кнопку "Создать отчет" или "Генерировать". Система покажет индикатор прогресса. Время обработки зависит от объема данных. Вы можете продолжить работу в другой вкладке.
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <h4>Внимание:</h4>
+                    <div class="tips-text">
+                        Не закрывайте браузер во время генерации отчета. Большие отчеты могут обрабатываться до 10-15 минут. При возникновении ошибок попробуйте уменьшить объем данных или обратитесь к администратору.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Скачивание отчета</div>
+                </div>
+                <div class="step-description">
+                    После завершения генерации отчета система предложит скачать готовый файл. Отчет будет доступен для загрузки в течение определенного времени.
+                </div>
+                <img src="screenshots/download-report.png" alt="Скачивание готового отчета" class="screenshot-img">
+                <div class="detailed-explanation">
+                    <h4>Завершение процесса:</h4>
+                    <div class="tips-text">
+                        Появится ссылка "Скачать отчет". Файл будет сохранен в папку загрузок. Проверьте правильность данных в отчете. При необходимости повторите процесс с другими параметрами.
+                    </div>
+                </div>
+                <div class="importance-note">
+                    <h4>Важная информация:</h4>
+                    <div class="tips-text">
+                        Отчеты обычно доступны для скачивания в течение 7-30 дней. Сохраните файл в безопасном месте. Некоторые отчеты могут содержать конфиденциальную информацию. При работе с персональными данными соблюдайте требования безопасности.
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary">
+                <h2>Заключение</h2>
+                <p>Создание отчетов в LMS — это важный инструмент для мониторинга образовательного процесса и анализа эффективности обучения. Следуя данному руководству, вы сможете легко создавать различные типы отчетов для решения ваших аналитических задач.</p>
+                <div class="tips-text">
+                    <strong>Помните:</strong> Регулярное создание отчетов поможет вам отслеживать прогресс обучения, выявлять проблемные области и принимать обоснованные решения для улучшения образовательного процесса в Air Astana Training Academy.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
